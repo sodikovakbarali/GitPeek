@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
+      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+      - GITHUB_REDIRECT_URI=${GITHUB_REDIRECT_URI}
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_URL=sqlite+aiosqlite:///./gitpeek.db
+      - CACHE_EXPIRE_MINUTES=10
+    volumes:
+      - ./backend:/app
+      - backend-data:/app/data
+    networks:
+      - gitpeek-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - gitpeek-network
+
+volumes:
+  backend-data:
+
+networks:
+  gitpeek-network:
+    driver: bridge
+
