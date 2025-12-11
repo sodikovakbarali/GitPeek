@@ -27,6 +27,9 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 # Copy application code
 COPY app ./app
 
+# Create data directory for SQLite database
+RUN mkdir -p /app/data
+
 # Create non-root user
 RUN useradd -m -u 1000 gitpeek && \
     chown -R gitpeek:gitpeek /app
