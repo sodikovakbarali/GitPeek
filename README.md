@@ -47,14 +47,46 @@ GitPeek is a full-stack web application that lets you explore any GitHub user's 
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### 🐳 Option 1: Docker (Recommended - Works Everywhere!)
 
+**Prerequisites:** Docker & Docker Compose
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/GitPeek.git
+cd GitPeek
+
+# Start everything with one command!
+docker-compose up -d
+
+# Or use Make
+make docker-up
+```
+
+**That's it!** 🎉
+- **Frontend:** http://localhost:3000
+- **Backend:** http://localhost:8000
+- **API Docs:** http://localhost:8000/docs
+
+**For development with hot-reload:**
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+# Or: make docker-dev
+```
+
+See [DOCKER.md](DOCKER.md) for complete Docker documentation.
+
+---
+
+### 💻 Option 2: Local Development
+
+**Prerequisites:**
 - Python 3.11+
 - Node.js 20+
 - Git
 - GitHub account (for OAuth, optional)
 
-### Installation
+#### Installation
 
 1. **Clone the repository**
 ```bash
@@ -63,6 +95,23 @@ cd GitPeek
 ```
 
 2. **Backend Setup**
+
+**Option A: Using Poetry (Recommended)**
+```bash
+cd backend
+
+# Install dependencies with Poetry
+poetry install
+
+# Create .env file
+cp .env.example .env
+# Edit .env with your GitHub OAuth credentials (optional)
+
+# Run the server
+poetry run uvicorn app.main:app --reload
+```
+
+**Option B: Using pip**
 ```bash
 cd backend
 
@@ -82,6 +131,8 @@ uvicorn app.main:app --reload
 ```
 
 Backend will be available at `http://localhost:8000`
+
+See [POETRY.md](POETRY.md) for complete Poetry documentation.
 
 3. **Frontend Setup**
 ```bash
