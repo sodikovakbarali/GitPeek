@@ -68,6 +68,8 @@ make docker-up
 - **Backend:** http://localhost:8000
 - **API Docs:** http://localhost:8000/docs
 
+**This works immediately for all public repositories!** 🚀
+
 **For development with hot-reload:**
 ```bash
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
@@ -75,6 +77,23 @@ docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```
 
 See [DOCKER.md](DOCKER.md) for complete Docker documentation.
+
+---
+
+### 🔐 Optional: GitHub OAuth (For Private Repositories)
+
+**You can skip this!** GitPeek works perfectly without OAuth for viewing public repositories.
+
+**Only follow these steps if you want to view private repositories:**
+
+See [OAUTH_SETUP.md](OAUTH_SETUP.md) for complete step-by-step instructions.
+
+**Quick version:**
+1. Create GitHub OAuth app at https://github.com/settings/developers
+2. Add credentials to `.env` file
+3. Restart backend
+
+Most users don't need this!
 
 ---
 
@@ -153,47 +172,28 @@ Frontend will be available at `http://localhost:5173`
 
 ## ⚙️ Configuration
 
-### Backend Environment Variables
+### Basic Configuration (Optional)
 
-Create a `.env` file in the `backend/` directory:
+GitPeek works out of the box with no configuration needed!
 
-```bash
-# GitHub OAuth (Required for authentication features)
-GITHUB_CLIENT_ID=your_github_client_id
-GITHUB_CLIENT_SECRET=your_github_client_secret
-GITHUB_REDIRECT_URI=http://localhost:5173/auth/callback
+All configuration is optional and only needed for:
+- 🔐 GitHub OAuth (to view private repositories)
+- 🔧 Custom API URLs
+- 🎛️ Advanced features
 
-# Security
-SECRET_KEY=your-secret-key-change-in-production
+### GitHub OAuth Setup (Optional)
 
-# Database
-DATABASE_URL=sqlite+aiosqlite:///./gitpeek.db
+**⚡ Skip this if you only want to view public repositories!**
 
-# Cache
-CACHE_EXPIRE_MINUTES=10
+To enable private repository viewing, see the complete guide:
+- 📖 **[OAUTH_SETUP.md](OAUTH_SETUP.md)** - Step-by-step OAuth setup guide
 
-# API
-GITHUB_API_BASE_URL=https://api.github.com
-GITHUB_GRAPHQL_URL=https://api.github.com/graphql
-```
+Quick summary:
+1. Create GitHub OAuth app at https://github.com/settings/developers
+2. Create `.env` file in project root with your credentials
+3. Restart backend: `docker-compose restart backend`
 
-### Frontend Environment Variables
-
-Create a `.env` file in the `frontend/` directory:
-
-```bash
-VITE_API_BASE_URL=http://localhost:8000
-```
-
-### Setting Up GitHub OAuth
-
-1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
-2. Click "New OAuth App"
-3. Fill in the details:
-   - **Application name:** GitPeek (or your choice)
-   - **Homepage URL:** `http://localhost:5173` (development)
-   - **Authorization callback URL:** `http://localhost:5173/auth/callback`
-4. Copy the Client ID and Client Secret to your `.env` file
+**Most users can skip this!** The app works great without OAuth.
 
 ## 🧪 Testing
 

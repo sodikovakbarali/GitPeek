@@ -2,10 +2,12 @@
 
 Get GitPeek up and running in under 5 minutes! 🚀
 
+**⚡ Note:** GitPeek works immediately for viewing **all public repositories**. OAuth setup is **optional** and only needed if you want to view private repositories. See [OAUTH_SETUP.md](OAUTH_SETUP.md) for OAuth instructions.
+
 ## 📋 Prerequisites
 
-- Python 3.11 or higher
-- Node.js 20 or higher
+- Docker & Docker Compose (recommended)
+- OR Python 3.11+ and Node.js 20+ (for local development)
 - Git
 
 ## 🚀 Quick Setup
